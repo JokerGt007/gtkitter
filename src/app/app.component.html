@@ -1,0 +1,18 @@
+<div id="nav-bar">
+    <div id="nav-bar-content">
+        <div id="nav-bar-left">
+            <div style="font-size: 1.5em;" class="nav-bar-items">GTKitter</div>
+        </div>
+        <div id="nav-bar-right">
+            <div *ngIf="!loggedIn()" (click)="onLoginClick()" class="nav-bar-items">Login</div>
+            <div *ngIf="loggedIn() && userHasProfile" class="nav-bar-items">
+                Hi, {{userDocument.publicName}}
+            </div>
+            <div *ngIf="loggedIn()" (click)="onLogoutClick()" class="nav-bar-items">Logout</div>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>
+
+<app-profile [show]="loggedIn() && !userHasProfile"></app-profile>

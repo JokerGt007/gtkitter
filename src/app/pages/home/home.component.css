@@ -1,0 +1,60 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#home-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#home-page-landing {
+    width: 100vw; 
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("src/assets/home_background.png");
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#landing-left {
+    display: flex;
+    color: rgb(255, 255, 255);
+    justify-content: center;
+    align-items: center;
+}
+
+#landing-left-content {
+    text-align: right;
+    padding: 1em 1em 1em 3em;
+}
+
+#landing-left-content h1 {
+    font-size: 4em;
+    font-family: 'Fruktur', cursive;
+    color: #6A0DAD;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+#landing-left-content p {
+    font-size: 1.5em;
+    font-family: 'Fruktur', cursive;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+#landing-left-content button {
+    font-size: 1em;
+    font-family: 'Fruktur', cursive;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
