@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/FirebaseTSFirestore';
 import { PostData } from 'src/app/pages/post-feed/post-feed.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ReplyComponent } from '../reply/reply.component';
 
 @Component({
   selector: 'app-post',
@@ -12,7 +14,7 @@ export class PostComponent implements OnInit {
   creatorName: string;
   creatorDescription: string;
   firestore = new FirebaseTSFirestore();
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
     if (this.postData && this.postData.creatorId) {
@@ -20,6 +22,10 @@ export class PostComponent implements OnInit {
     } else {
       console.error("Erro: postData ou creatorId está indefinido.");
     }
+  }
+
+  onReplyClick(){
+    this.dialog.open(ReplyComponent, {data: this.postData.postId});
   }
 
   getCreatorInfo() {

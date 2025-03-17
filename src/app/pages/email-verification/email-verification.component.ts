@@ -17,7 +17,7 @@ export class EmailVerificationComponent implements OnInit {
       this.auth.isSignedIn() &&
       !this.auth.getAuth().currentUser.emailVerified
     ){
-      this.auth.sendVerificaitonEmail();
+      this.auth.sendVerificationEmail();
     } else {
       this.router.navigate(["/"]);
     }
@@ -25,6 +25,6 @@ export class EmailVerificationComponent implements OnInit {
 
 
   onResendClick(){
-    this.auth.sendVerificaitonEmail();
+    this.auth.sendVerificationEmail();
   }
 }
