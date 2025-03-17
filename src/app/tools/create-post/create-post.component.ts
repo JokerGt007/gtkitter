@@ -20,6 +20,7 @@ export class CreatePostComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Função chamada quando o botão de envio é pressionado
   onPostClick(commentInput: HTMLTextAreaElement) {
     let comment = commentInput.value;
     if(comment.length <= 0) return;
@@ -27,12 +28,20 @@ export class CreatePostComponent implements OnInit {
     // Verifica se há imagem selecionada e usa a URL local
     if (this.selectedImageFile) {
       this.generateLocalImageUrl().then(() => {
-        this.uploadPostWithImage(comment);
+        this.uploadPostWithImage(comment).then(() => {
+          window.location.reload();  // Recarga a página após o upload ser concluído
+        }).catch(error => {
+          console.error("Erro ao criar post com imagem:", error);
+        });
       }).catch(error => {
         console.error("Erro ao gerar URL da imagem:", error);
       });
     } else {
-      this.uploadPost(comment); // Caso não tenha imagem
+      this.uploadPost(comment).then(() => {
+        window.location.reload();  // Recarga a página após o upload ser concluído
+      }).catch(error => {
+        console.error("Erro ao criar post sem imagem:", error);
+      });
     }
   }
 
@@ -50,52 +59,58 @@ export class CreatePostComponent implements OnInit {
   }
 
   // Função para fazer o upload do post com a imagem
-  uploadPostWithImage(comment: string) {
-    if (!this.imageUrl) {
-      console.error("imageUrl não foi gerada corretamente.");
-      return;
-    }
-
-    let postId = this.firestore.genDocId();
-    this.firestore.create(
-      {
-        path: ["Posts", postId],
-        data: {
-          comment: comment,
-          creatorId: this.auth.getAuth().currentUser.uid,
-          imageUrl: this.imageUrl, // Usa a URL local da imagem
-          timestamp: FirebaseTSApp.getFirestoreTimestamp()
-        },
-        onComplete: (docId) => {
-          this.dialog.close();
-        },
-        onFail: (error) => {
-          console.error("Erro ao criar post:", error);
-        }
+  uploadPostWithImage(comment: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!this.imageUrl) {
+        reject("imageUrl não foi gerada corretamente.");
+        return;
       }
-    );
+
+      let postId = this.firestore.genDocId();
+      this.firestore.create(
+        {
+          path: ["Posts", postId],
+          data: {
+            comment: comment,
+            creatorId: this.auth.getAuth().currentUser.uid,
+            imageUrl: this.imageUrl, // Usa a URL local da imagem
+            timestamp: FirebaseTSApp.getFirestoreTimestamp()
+          },
+          onComplete: () => {
+            resolve();  // Marca como concluído
+          },
+          onFail: (error) => {
+            reject(error);  // Marca como erro
+          }
+        }
+      );
+    });
   }
 
-  uploadPost(comment: string) {
-    this.firestore.create(
-      {
-        path: ["Posts"],
-        data: {
-          comment: comment,
-          creatorId: this.auth.getAuth().currentUser.uid,
-          imageUrl: "assets/home_background.png", // Imagem padrão caso não haja imagem
-          timestamp: FirebaseTSApp.getFirestoreTimestamp()
-        },
-        onComplete: (docId) => {
-          this.dialog.close();
-        },
-        onFail: (error) => {
-          console.error("Erro ao criar post sem imagem:", error);
+  // Função para fazer o upload do post sem a imagem
+  uploadPost(comment: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.firestore.create(
+        {
+          path: ["Posts"],
+          data: {
+            comment: comment,
+            creatorId: this.auth.getAuth().currentUser.uid,
+            imageUrl: "assets/home_background.png", // Imagem padrão caso não haja imagem
+            timestamp: FirebaseTSApp.getFirestoreTimestamp()
+          },
+          onComplete: () => {
+            resolve();  // Marca como concluído
+          },
+          onFail: (error) => {
+            reject(error);  // Marca como erro
+          }
         }
-      }
-    );
+      );
+    });
   }
 
+  // Função para selecionar a imagem
   onPhotoSelected(photoSelector: HTMLInputElement) {
     this.selectedImageFile = photoSelector.files[0];
     if (!this.selectedImageFile) return;
