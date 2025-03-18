@@ -37,6 +37,7 @@ export class AuthenticatorComponent implements OnInit {
         password: password,
         onComplete: (uc) => {
           this.bottomSheetRef.dismiss();
+          window.location.reload();
         },
         onFail: (err) => {
           alert(err);
