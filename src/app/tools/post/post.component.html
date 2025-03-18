@@ -8,8 +8,14 @@
         {{postData?.comment}}
     </mat-card-content>
     <mat-card-actions>
-        <mat-icon (click)="onReplyClick()" class="action-item" color="primary" >chat_bubble_outline</mat-icon>
-        <mat-icon class="action-item" color="primary">favorite_border</mat-icon>
+        <mat-icon (click)="onReplyClick()" class="action-item" color="primary">chat_bubble_outline</mat-icon>
+
+        <!-- Ícone de Like atualizado -->
+        <mat-icon (click)="toggleLike()" class="action-item" [color]="isLiked ? 'warn' : 'primary'">
+          {{ isLiked ? 'favorite' : 'favorite_border' }}
+        </mat-icon>
+        <span>{{ likes }}</span>
+
         <mat-icon class="action-item" color="primary">save</mat-icon>
     </mat-card-actions>
 </mat-card>

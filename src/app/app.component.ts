@@ -69,7 +69,11 @@ export class AppComponent {
 
   onLogoutClick() {
     this.auth.signOut();
+    this.router.navigate([""]);
   }
+  
+  
+  
 
   loggedIn() {
     return this.auth.isSignedIn();
