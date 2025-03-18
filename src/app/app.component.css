@@ -19,8 +19,6 @@
     height: 100%;
     padding: 0 2em;
     box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     color: rgb(118, 3, 212);
 }
 
@@ -29,9 +27,16 @@
 }
 
 .nav-bar-items {
-    font-size: 1em;
+    font-size: 1.5em; /* Tamanho do texto */
     display: inline-block;
     cursor: pointer;
     font-family: 'Fruktur', cursive;
     margin-right: 1em;
+}
+
+#icon img {
+    width: 1.5em; /* Tamanho do ícone igual ao texto */
+    height: 1.5em; /* Mantém a proporção */
+    margin-right: 0.5em; /* Espaço entre o ícone e o texto */
+    transform: translateY(2px); /* Move o ícone ligeiramente para baixo */
 }
