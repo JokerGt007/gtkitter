@@ -13,9 +13,10 @@
 #reply-action-bar {
     width: 100%;
     display: grid;
-    grid-template-columns: 3em 1fr;
+    grid-template-columns: auto 1fr; /* O botão ocupa apenas o necessário */
     margin-top: 1em;
     direction: rtl;
+    align-items: center; /* Centraliza verticalmente */
 }
 
 input {
@@ -39,7 +40,7 @@ input {
 
 .comment {
     border-radius: 1em;
-    background-color: gainsboro;
+    background-color: rgb(128, 228, 14);
     padding: 1em;
 }
 
@@ -51,4 +52,23 @@ input {
 .creator-comment {  
     background-color: purple;
     color: white;
+}
+
+/* Ajuste para o botão de envio */
+#send-button {
+    background-color: purple;
+    color: white;
+    border: none;
+    padding: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 3em; /* Mantém o tamanho fixo do botão */
+    height: 100%; /* Garante que o botão ocupe toda a altura do input */
+    border-radius: 0 5px 5px 0; /* Arredonda apenas o canto direito */
+}
+
+#send-button:hover {
+    background-color: darkviolet;
 }

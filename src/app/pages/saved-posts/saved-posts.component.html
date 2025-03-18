@@ -1,0 +1,13 @@
+<h2>Meus Posts Salvos</h2>
+
+<div *ngFor="let post of savedPosts">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{ post.creatorName }}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="{{ post.imageUrl }}">
+        <mat-card-actions>
+            <button mat-button color="warn" (click)="removeSavedPost(post.postId)">Remover</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

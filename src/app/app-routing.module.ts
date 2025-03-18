@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { EmailVerificationComponent } from './pages/email-verification/email-verification.component';
 import { PostFeedComponent } from './pages/post-feed/post-feed.component';
+import { SavedPostsComponent } from './pages/saved-posts/saved-posts.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},

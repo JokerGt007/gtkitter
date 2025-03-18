@@ -4,6 +4,9 @@
             <div style="font-size: 1.5em;" class="nav-bar-items">GTKitter</div>
         </div>
         <div id="nav-bar-right">
+            <button mat-button (click)="toggleDarkMode()">
+                <mat-icon>{{ isDarkMode ? 'brightness_7' : 'brightness_2' }}</mat-icon>
+            </button>
             <div *ngIf="!loggedIn()" (click)="onLoginClick()" class="nav-bar-items">Login</div>
             <div *ngIf="loggedIn() && userHasProfile" class="nav-bar-items">
                 Hi, {{getUsername()}}
@@ -14,5 +17,7 @@
 </div>
 
 <router-outlet></router-outlet>
+
+
 
 <app-profile [show]="loggedIn() && !userHasProfile"></app-profile>
